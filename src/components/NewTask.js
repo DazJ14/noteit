@@ -76,6 +76,7 @@ const NewTask = ({ addTask, showMenu }) => {
         validate,
         onSubmit: values => {
             addTask(values)
+            console.log(values)
             showMenu()
         }
     })

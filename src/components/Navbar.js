@@ -18,7 +18,7 @@ const styles = {
 const Navbar = ({ taskList, cambiarTask }) => {
     return (
         <nav style={styles.navbar}>
-            <h1 style={styles.titulo}>TODO LIST APP</h1>
+            <h1 style={styles.titulo}>Noteit</h1>
             <Task taskList={taskList} cambiarTask={cambiarTask}/>
         </nav>
     );
