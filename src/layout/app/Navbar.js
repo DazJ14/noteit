@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-closing-tag-location */
-// import UserIcon from '../../components/UserIcon/UserIcon'
 import ListContainer from '../../components/ListContainer'
 import ListItem from '../../components/ListItem'
 import NavigationListItem from '../../components/NavigationListItem'
@@ -29,7 +28,6 @@ const Navbar = () => {
   const navigate = useNavigate()
 
   const [favoriteNotes, setFavoriteNotes] = useState([])
-  const [normalNotes, setNormalNotes] = useState([])
 
   useEffect(() => {
     let newFavoriteNotes = []
@@ -41,7 +39,6 @@ const Navbar = () => {
       }
     }
     setFavoriteNotes(newFavoriteNotes)
-    setNormalNotes(userNotes)
   }, [userNotes])
 
   const handleLogout = () => {
@@ -92,18 +89,14 @@ const Navbar = () => {
                 ? <ListContainer header='Favorites' headerColor='text-slate-100/90'>
                   {favoriteNotes.length !== 0
                     ? favoriteNotes.map(({ note, id }) => {
-                      const noteObj = note.header.content[0].content[0]
-                      let noteTitle = ''
-
-                      // eslint-disable-next-line no-prototype-builtins
-                      noteObj.hasOwnProperty('text')
-                        ? noteTitle = noteObj.text
-                        : noteTitle = 'Untitled'
+                      const header = note.header.content[0].content
+                        ? note.header.content[0].content[0].text
+                        : 'Untitled'
 
                       return (
-                        <NavigationListItem textColor='text-[#9B9B9B]' extraStyles='hover:bg-[#3b3b3b]' key={id} href={id}>
+                        <NavigationListItem textColor='text-[#9B9B9B]' extraStyles='hover:bg-[#3b3b3b] line-clamp-1' key={id} href={id}>
                           <FontAwesomeIcon icon={faFileLines} className='text-base' />
-                          <span>{noteTitle}</span>
+                          <span>{header}</span>
                         </NavigationListItem>
                       )
                     })
@@ -113,26 +106,20 @@ const Navbar = () => {
             }
 
             {
-              normalNotes.length > 0
+              userNotes
                 ? <ListContainer header='Private' headerColor='text-slate-100/90'>
-                  {normalNotes.length !== 0
-                    ? normalNotes.map(({ note, id }) => {
-                      const noteObj = note.header.content[0].content[0]
-                      let noteTitle = ''
-
-                      // eslint-disable-next-line no-prototype-builtins
-                      noteObj.hasOwnProperty('text')
-                        ? noteTitle = noteObj.text
-                        : noteTitle = 'Untitled'
-
+                  {userNotes.length !== 0 &&
+                    userNotes.map(({ note, id }) => {
+                      const header = note.header.content[0].content
+                        ? note.header.content[0].content[0].text
+                        : 'Untitled'
                       return (
                         <NavigationListItem textColor='text-[#9B9B9B]' extraStyles='hover:bg-[#3b3b3b]' key={id} href={id}>
                           <FontAwesomeIcon icon={faFileLines} className='text-base' />
-                          <span>{noteTitle}</span>
+                          <span className='line-clamp-1'>{header}</span>
                         </NavigationListItem>
                       )
-                    })
-                    : null}
+                    })}
                 </ListContainer>
                 : null
             }

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react/jsx-closing-tag-location */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faStarRegular, faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarSolid, faEllipsis } from '@fortawesome/free-solid-svg-icons'
@@ -43,24 +43,9 @@ const Body = () => {
   //   }
   // }
 
-  // useEffect(() => {
-  //   if (currentNote) {
-  //     const createdAtInUnix = currentNote.created_at
-  //     const lastEditionInUnix = currentNote.last_edition
-
-  //     const createdDate = new Date(createdAtInUnix)
-  //     const lastEditionDate = new Date(lastEditionInUnix)
-
-  //     const humanDateFormat = {
-  //       created: createdDate.toLocaleString(),
-  //       edited: lastEditionDate.toLocaleString()
-  //     }
-
-  //     return setEditedDate(humanDateFormat)
-  //   }
-  //   setIsEditable(false)
-  //   // navigate('notes', { relative: 'path' })
-  // }, [current])
+  useEffect(() => {
+    console.log(titleEdited)
+  }, [titleEdited])
 
   return (
     <div className='bg-[#191919] h-full grow'>
@@ -71,7 +56,7 @@ const Body = () => {
           <aside className='h-12 px-3 flex justify-between items-center text-[#d4d4d4] text-sm relative'>
             <span>{
               // eslint-disable-next-line no-prototype-builtins
-              currentNote.note.header.content[0].content[0].hasOwnProperty('text')
+              currentNote.note.header.content[0].content
                 ? currentNote.note.header.content[0].content[0].text
                 : 'Untitled'
             }</span>

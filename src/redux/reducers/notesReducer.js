@@ -126,7 +126,7 @@ export const notesSlice = createSlice({
 
 export const { userLogOut } = notesSlice.actions
 
-export const selectAllUserNotes = (state) => state.notes?.notes
+export const selectAllUserNotes = (state) => state.notes.notes
 
 export const selectNoteById = (state, noteId) =>
   state.notes.notes.find((note) => note.id === noteId)
