@@ -8,7 +8,7 @@ import {
 import StarterKit from '@tiptap/starter-kit'
 import Document from '@tiptap/extension-document'
 import Placeholder from '@tiptap/extension-placeholder'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const CustomDocumentForHeader = Document.extend({
   content: 'title'
@@ -35,7 +35,12 @@ const Title = Node.create({
 })
 
 const EditorHeader = ({ isEditable, currentNote, titleEdited }) => {
-  const [noteTitle, setNoteTitle] = useState({})
+  useEffect(() => {
+    if (headerEditorInstance) {
+      headerEditorInstance.commands.setContent(currentNote.note.header)
+      titleEdited(headerEditorInstance.getJSON())
+    }
+  }, [currentNote])
 
   const headerEditorInstance = useEditor({
     editorProps: {
@@ -43,7 +48,6 @@ const EditorHeader = ({ isEditable, currentNote, titleEdited }) => {
         class: 'focus:outline-none'
       }
     },
-
     // Header extension
     extensions: [
       StarterKit.configure({
@@ -65,10 +69,8 @@ const EditorHeader = ({ isEditable, currentNote, titleEdited }) => {
         }
       })
     ],
-
-    content: '',
+    content: currentNote.note.header,
     onUpdate: () => {
-      // console.log(headerEditorInstance.getJSON())
       titleEdited(headerEditorInstance.getJSON())
     }
   })
@@ -78,16 +80,6 @@ const EditorHeader = ({ isEditable, currentNote, titleEdited }) => {
       headerEditorInstance.setEditable(isEditable)
     }
   }, [isEditable, headerEditorInstance])
-
-  useEffect(() => {
-    setNoteTitle(currentNote.note.header)
-  }, [currentNote])
-
-  useEffect(() => {
-    if (headerEditorInstance) {
-      headerEditorInstance.commands.setContent(currentNote.note.header)
-    }
-  }, [noteTitle])
 
   return (
     <EditorContent className='mb-8 w-full' editor={headerEditorInstance} />

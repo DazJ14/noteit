@@ -29,6 +29,7 @@ const AppContainer = () => {
       } catch (error) {
         setLoading(false)
         console.log('error status: ' + error)
+        throw new Error(error)
       }
     }
 

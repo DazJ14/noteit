@@ -1,5 +1,4 @@
 /* eslint-disable space-before-function-paren */
-// src/Tiptap.jsx
 import { EditorContent, FloatingMenu, useEditor } from '@tiptap/react'
 import { mergeAttributes } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
@@ -7,8 +6,7 @@ import BaseHeading from '@tiptap/extension-heading'
 import TaskList from '@tiptap/extension-task-list'
 import TaskItem from '@tiptap/extension-task-item'
 import Placeholder from '@tiptap/extension-placeholder'
-
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeading, faParagraph, faListCheck } from '@fortawesome/free-solid-svg-icons'
 
@@ -43,7 +41,12 @@ const Heading = BaseHeading.configure({ levels: [2, 3, 4] }).extend({
 })
 
 const EditorBody = ({ isEditable, currentNote, bodyEdited }) => {
-  const [noteBody, setNoteBody] = useState({})
+  useEffect(() => {
+    if (editor) {
+      editor.commands.setContent(currentNote.note.body)
+      bodyEdited(editor.getJSON())
+    }
+  }, [currentNote])
 
   const editor = useEditor({
     editorProps: {
@@ -81,7 +84,7 @@ const EditorBody = ({ isEditable, currentNote, bodyEdited }) => {
         }
       })
     ],
-    content: `<p>${''}</p>`,
+    content: currentNote.note.body,
 
     onUpdate: () => {
       bodyEdited(editor.getJSON())
@@ -93,16 +96,6 @@ const EditorBody = ({ isEditable, currentNote, bodyEdited }) => {
       editor.setEditable(isEditable)
     }
   }, [isEditable, editor])
-
-  useEffect(() => {
-    setNoteBody(currentNote.note.body)
-  }, [currentNote])
-
-  useEffect(() => {
-    if (editor) {
-      editor.commands.setContent(currentNote.note.body)
-    }
-  }, [noteBody])
 
   return (
     <div className='w-full'>

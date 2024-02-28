@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit'
 import notes from '../../services/notes'
 
 const initialState = {
@@ -16,9 +16,13 @@ export const fetchUserNotes = createAsyncThunk('notes/fetchUserNotes', async (se
   return fetchedUserNotes
 })
 
-export const createNewNote = createAsyncThunk('notes/createNewNote', async (_, { getState }) => {
+export const createNewNote = createAsyncThunk('notes/createNewNote', async (navigate, { getState }) => {
   const token = getState().user.token
   const data = await notes.createNote(token)
+
+  if (navigate) {
+    navigate(`/notes/${data.id}`)
+  }
 
   return data
 })
@@ -45,9 +49,12 @@ export const saveNote = createAsyncThunk('notes/saveNote', (noteEdited, { getSta
 
 export const updateNote = createAsyncThunk('notes/updateNote', async (newNote, { getState }) => {
   const { id, header, body } = newNote
+  console.log('en el thunk updateNote antes de la peticion: ' + JSON.stringify(newNote))
   const token = getState().user.token
 
   const request = await notes.updateNote(id, { header, body }, token)
+
+  console.log('despues de la peticion: ' + JSON.stringify(request))
 
   return {
     id: request.id,
@@ -105,7 +112,7 @@ export const notesSlice = createSlice({
         state.notes.push(action.payload)
       })
       .addCase(updateNote.fulfilled, (state, action) => {
-        console.log(action.payload)
+        console.log('action.payload: ' + JSON.stringify(action.payload))
         const { id, note, lastEdition } = action.payload
         const existingNote = state.notes.find((note) => note.id === id)
         if (existingNote) {
@@ -130,5 +137,15 @@ export const selectAllUserNotes = (state) => state.notes.notes
 
 export const selectNoteById = (state, noteId) =>
   state.notes.notes.find((note) => note.id === noteId)
+
+export const selectFavoriteUserNotes = createSelector(
+  [selectAllUserNotes],
+  (notes) => notes.filter((note) => note.favorite)
+)
+
+export const selectFavoriteNotes = (state) => {
+  const notesCopy = [...state.notes.notes]
+  return notesCopy.filter(note => note.favorite)
+}
 
 export default notesSlice.reducer

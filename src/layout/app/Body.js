@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent */
 /* eslint-disable react/jsx-closing-tag-location */
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faStarRegular, faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { faStar as faStarSolid, faEllipsis } from '@fortawesome/free-solid-svg-icons'
@@ -24,28 +24,13 @@ const Body = () => {
   const [isEditable, setIsEditable] = useState(true)
   const [titleEdited, setTitleEdited] = useState({})
   const [bodyEdited, setBodyEdited] = useState({})
-  // const [editedDate, setEditedDate] = useState({})
-
-  // const toHumanDate = () => {
-  //   if (currentNote) {
-  //     const createdAtInUnix = currentNote.created_at
-  //     const lastEditionInUnix = currentNote.last_edition
-
-  //     const createdDate = new Date(createdAtInUnix)
-  //     const lastEditionDate = new Date(lastEditionInUnix)
-
-  //     const humanDateFormat = {
-  //       created: createdDate.toLocaleString(),
-  //       edited: lastEditionDate.toLocaleString()
-  //     }
-
-  //     return humanDateFormat.edited
-  //   }
-  // }
 
   useEffect(() => {
-    console.log(titleEdited)
-  }, [titleEdited])
+    setIsEditable(true)
+  }, [noteId])
+
+  // console.log('titulo', titleEdited)
+  // console.log('body', bodyEdited)
 
   return (
     <div className='bg-[#191919] h-full grow'>
@@ -101,6 +86,7 @@ const Body = () => {
                   <button
                     className='absolute bottom-8 right-0 py-1 px-2 mt-8 bg-green-500 text-white rounded' onClick={() => {
                       setIsEditable(false)
+                      console.log('en el body: ' + JSON.stringify({ id: noteId, header: titleEdited, body: bodyEdited }))
                       dispath(updateNote({ id: noteId, header: titleEdited, body: bodyEdited }))
                     }}
                   >

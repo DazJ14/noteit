@@ -26,6 +26,7 @@
     "@tiptap/react": "^2.1.12",
     "@tiptap/starter-kit": "^2.1.12",
     "axios": "^1.6.0",
+    "clsx": "^2.1.0",
     "emoji-mart": "^5.5.2",
     "formik": "^2.4.2",
     "gh-pages": "^6.0.0",
