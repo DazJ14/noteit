@@ -1,12 +1,14 @@
 const Submit = ({ children, disabled = false }) => {
   return (
-    <button
-      type='submit'
-      disabled={disabled}
-      className={`${disabled ? 'cursor-not-allowed bg-blue-300' : 'hover:bg-blue-600 bg-blue-500'}  transition-colors text-white text-sm w-full mt-2 block rounded px-4 py-2`}
-    >
-      {children}
-    </button>
+    <div>
+      <button
+        type='submit'
+        disabled={disabled}
+        className={`${disabled ? 'cursor-not-allowed bg-indigo-300' : 'bg-indigo-500 hover:bg-indigo-400'}  flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+      >
+        {children}
+      </button>
+    </div>
   )
 }
 

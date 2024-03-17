@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { loginUser } from '../redux/reducers/userSlice'
@@ -34,24 +35,33 @@ const Login = () => {
   }
 
   return (
-    <div className='w-full h-full flex items-center justify-center bg-orange-100 relative'>
-      <Link className='absolute text-2xl font-bold top-4 left-4 py-2 px-3' to='/'>Noteit</Link>
-      <div className='bg-white p-5 rounded shadow-2xl w-[100%] h-full flex flex-col justify-center sm:block sm:h-auto sm:w-[400px]'>
-        <h1 className='text-xl font-bold text-center'>Login</h1>
+    <div className='bg-gray-900 flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+      <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
+        <Link
+          className='block text-center mx-auto h-10 w-auto text-white text-3xl font-bold'
+          to='/'
+        >
+          Noteit
+        </Link>
+        <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white'>
+          Sign in to your account
+        </h2>
+      </div>
+      <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
 
         {error && <FormErrorMessage error={error} />}
 
-        <form className='my-5' onSubmit={handleLogin}>
+        <form className='space-y-6' onSubmit={handleLogin}>
           <Input inputId='username' value={username} placeholder='Put your username' type='text' labelText='Username' setValue={setUsername} />
           <Input inputId='password' value={password} placeholder='Put your password' type='password' labelText='Password' setValue={setPassword} passwordWithShowButton />
 
-          <Submit disabled={loading}>Login</Submit>
+          <Submit disabled={loading}>Sign in</Submit>
         </form>
 
-        <span className='text-center block text-sm'>
-          Didn't have an account?
-          <Link className='text-blue-600 ml-1' to='/register'>Register</Link>
-        </span>
+        <p className='mt-10 text-center text-sm text-gray-400'>
+          Didn't have an account?{' '}
+          <Link className='font-semibold leading-6 text-indigo-500 hover:text-indigo-300' to='/register'>Sign up</Link>
+        </p>
       </div>
     </div>
   )

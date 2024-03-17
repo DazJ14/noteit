@@ -22,7 +22,7 @@ const Navbar = () => {
   const userNotes = useSelector((state) => selectAllUserNotes(state))
   const favoriteNotes = useSelector(selectFavoriteUserNotes)
 
-  const [navbarExpanded, setNavbarExpanded] = useState(false)
+  const [navbarExpanded, setNavbarExpanded] = useState(true)
 
   const navbarButtons = [
     {
