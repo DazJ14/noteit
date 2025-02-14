@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "homepage": "http://Dazj14.github.io",
   "dependencies": {
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",
@@ -27,7 +26,6 @@
     "axios": "^1.6.0",
     "clsx": "^2.1.0",
     "emoji-mart": "^5.5.2",
-    "gh-pages": "^6.0.0",
     "overlayscrollbars": "^2.4.7",
     "overlayscrollbars-react": "^0.5.4",
     "prop-types": "^15.8.1",
@@ -38,7 +36,6 @@
     "socket.io-client": "^4.7.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "vite build",
@@ -65,7 +62,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@vitejs/plugin-react": "^4.3.4",
