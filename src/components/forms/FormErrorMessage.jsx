@@ -1,6 +1,6 @@
 const FormErrorMessage = ({ error }) => {
   return (
-    <div className='text-red-500 mt-3 text-center'>
+    <div className='mt-3 text-center text-red-500'>
       <span>{error}</span>
     </div>
   )

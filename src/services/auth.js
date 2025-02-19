@@ -4,8 +4,8 @@ const baseUrl = 'https://noteit-api-service.onrender.com/api'
 const authSession = async (token) => {
   const config = {
     headers: {
-      Authorization: token
-    }
+      Authorization: token,
+    },
   }
 
   try {

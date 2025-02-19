@@ -11,23 +11,22 @@ Esta aplicación fue creada como una práctica para React. En un futuro muy pró
 ## Instalación
 
 1. Clona el repositorio:
-    ```bash
-    git clone https://github.com/tu-usuario/noteit.git
-    ```
+   ```bash
+   git clone https://github.com/tu-usuario/noteit.git
+   ```
 2. Navega al directorio del proyecto:
-    ```bash
-    cd noteit
-    ```
+   ```bash
+   cd noteit
+   ```
 3. Instala las dependencias:
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 4. Inicia la aplicación:
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```
 
 ---
 
 Creado por DazJ
-

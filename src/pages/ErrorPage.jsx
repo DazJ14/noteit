@@ -5,9 +5,13 @@ const ErrorPage = () => {
   console.log(error)
 
   return (
-    <div className='w-full h-full bg-[#191919] flex flex-col items-center justify-center'>
-      <span className='text-3xl text-[#9B9B9B] block mx-auto w-fit'>Error {error.status} has ocurred!</span>
-      <span className='text-xl text-[#9B9B9B] block mx-auto w-fit'>{error.statusText || error.message}</span>
+    <div className='flex h-full w-full flex-col items-center justify-center bg-[#191919]'>
+      <span className='mx-auto block w-fit text-3xl text-[#9B9B9B]'>
+        Error {error.status} has ocurred!
+      </span>
+      <span className='mx-auto block w-fit text-xl text-[#9B9B9B]'>
+        {error.statusText || error.message}
+      </span>
     </div>
   )
 }

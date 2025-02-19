@@ -19,7 +19,7 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault()
 
-    if ((username && password)) {
+    if (username && password) {
       try {
         setLoading(true)
 
@@ -35,10 +35,10 @@ const Login = () => {
   }
 
   return (
-    <div className='bg-gray-900 flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+    <div className='flex min-h-full flex-1 flex-col justify-center bg-gray-900 px-6 py-12 lg:px-8'>
       <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
         <Link
-          className='block text-center mx-auto h-10 w-auto text-white text-3xl font-bold'
+          className='mx-auto block h-10 w-auto text-center text-3xl font-bold text-white'
           to='/'
         >
           Noteit
@@ -48,19 +48,38 @@ const Login = () => {
         </h2>
       </div>
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-
         {error && <FormErrorMessage error={error} />}
 
         <form className='space-y-6' onSubmit={handleLogin}>
-          <Input inputId='username' value={username} placeholder='Put your username' type='text' labelText='Username' setValue={setUsername} />
-          <Input inputId='password' value={password} placeholder='Put your password' type='password' labelText='Password' setValue={setPassword} passwordWithShowButton />
+          <Input
+            inputId='username'
+            value={username}
+            placeholder='Put your username'
+            type='text'
+            labelText='Username'
+            setValue={setUsername}
+          />
+          <Input
+            inputId='password'
+            value={password}
+            placeholder='Put your password'
+            type='password'
+            labelText='Password'
+            setValue={setPassword}
+            passwordWithShowButton
+          />
 
           <Submit disabled={loading}>Sign in</Submit>
         </form>
 
         <p className='mt-10 text-center text-sm text-gray-400'>
           Didn't have an account?{' '}
-          <Link className='font-semibold leading-6 text-indigo-500 hover:text-indigo-300' to='/register'>Sign up</Link>
+          <Link
+            className='font-semibold leading-6 text-indigo-500 hover:text-indigo-300'
+            to='/register'
+          >
+            Sign up
+          </Link>
         </p>
       </div>
     </div>

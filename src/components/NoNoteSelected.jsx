@@ -7,10 +7,19 @@ const NoNoteSelected = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='grow h-full flex flex-col items-center justify-center bg-[#191919] text-white'>
-      <span className='text-white text-3xl font-semibold mb-4'>No note selected</span>
-      <p className='text-lg mb-4'>You can try creating a new note or selecting an existing note</p>
-      <button onClick={() => dispatch(createNewNote(navigate))} className='bg-[#3b3b3b] py-2 px-4 rounded hover:bg-[#4e4e4e] transition-colors'>Create new note</button>
+    <div className='flex h-full grow flex-col items-center justify-center bg-[#191919] text-white'>
+      <span className='mb-4 text-3xl font-semibold text-white'>
+        No note selected
+      </span>
+      <p className='mb-4 text-lg'>
+        You can try creating a new note or selecting an existing note
+      </p>
+      <button
+        onClick={() => dispatch(createNewNote(navigate))}
+        className='rounded bg-[#3b3b3b] px-4 py-2 transition-colors hover:bg-[#4e4e4e]'
+      >
+        Create new note
+      </button>
     </div>
   )
 }

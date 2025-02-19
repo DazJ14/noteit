@@ -7,7 +7,9 @@ const UserLabel = () => {
   return (
     <>
       <UserIcon username={user} />
-      <span className='grow line-clamp-1 shrink text-white text-sm text-left'>{user}</span>
+      <span className='line-clamp-1 shrink grow text-left text-sm text-white'>
+        {user}
+      </span>
     </>
   )
 }

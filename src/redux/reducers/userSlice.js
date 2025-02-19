@@ -6,37 +6,52 @@ const initialState = {
   id: '',
   username: '',
   token: '',
-  access: false
+  access: false,
 }
 
-export const initializeAuth = createAsyncThunk('user/initializeAuth', async (_, { dispatch }) => {
-  const localData = window.localStorage.getItem('loggedNoteitAppUser')
-  const token = `Bearer ${localData}`
+export const initializeAuth = createAsyncThunk(
+  'user/initializeAuth',
+  async (_, { dispatch }) => {
+    const localData = window.localStorage.getItem('loggedNoteitAppUser')
+    const token = `Bearer ${localData}`
 
-  const response = await auth.authSession(token)
-  await dispatch(fetchUserNotes(token))
+    const response = await auth.authSession(token)
+    await dispatch(fetchUserNotes(token))
 
-  return { ...response, token }
-})
+    return { ...response, token }
+  }
+)
 
-export const createNewUser = createAsyncThunk('user/createNewUser', async (data) => {
-  const user = await auth.register({ username: data.username, password: data.password })
+export const createNewUser = createAsyncThunk(
+  'user/createNewUser',
+  async (data) => {
+    const user = await auth.register({
+      username: data.username,
+      password: data.password,
+    })
 
-  window.localStorage.setItem('loggedNoteitAppUser', (user.token))
+    window.localStorage.setItem('loggedNoteitAppUser', user.token)
 
-  return user
-})
+    return user
+  }
+)
 
-export const loginUser = createAsyncThunk('user/authUser', async (data, { dispatch }) => {
-  // console.log('login thunk')
-  const user = await auth.login({ username: data.username, password: data.password })
-  const token = `Bearer ${user.token}`
+export const loginUser = createAsyncThunk(
+  'user/authUser',
+  async (data, { dispatch }) => {
+    // console.log('login thunk')
+    const user = await auth.login({
+      username: data.username,
+      password: data.password,
+    })
+    const token = `Bearer ${user.token}`
 
-  window.localStorage.setItem('loggedNoteitAppUser', (user.token))
-  await dispatch(fetchUserNotes(token))
+    window.localStorage.setItem('loggedNoteitAppUser', user.token)
+    await dispatch(fetchUserNotes(token))
 
-  return user
-})
+    return user
+  }
+)
 
 export const userSlice = createSlice({
   name: 'user',
@@ -47,7 +62,7 @@ export const userSlice = createSlice({
       state.username = ''
       state.token = ''
       state.access = false
-    }
+    },
   },
 
   // eslint-disable-next-line space-before-function-paren
@@ -77,7 +92,7 @@ export const userSlice = createSlice({
         state.token = `Bearer ${token}`
         state.access = true
       })
-  }
+  },
 })
 
 export const { userLogin, userLogOut } = userSlice.actions

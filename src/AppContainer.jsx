@@ -1,11 +1,8 @@
 import { Route, Navigate } from 'react-router-dom'
-import {
-  useDispatch,
-  useSelector
-} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Suspense,
-  useEffect
+  useEffect,
   // useState
 } from 'react'
 import { initializeAuth } from './redux/reducers/userSlice'
@@ -53,17 +50,24 @@ const AppContainer = () => {
   // }
 
   return (
-    <Suspense fallback={
-      <div>
-        Processing...
-      </div>
-    }
-    >
+    <Suspense fallback={<div>Processing...</div>}>
       <RoutesWithNotFound>
-        <Route element={appAccess ? <Navigate to='/notes' /> : <Landing />} path='/' />
-        <Route element={appAccess ? <Navigate to='/notes' /> : <Register />} path='register' />
-        <Route element={appAccess ? <Navigate to='/notes' /> : <Login />} path='login' />
-        <Route element={appAccess ? <App /> : <Navigate to='/login' />} path='notes'>
+        <Route
+          element={appAccess ? <Navigate to='/notes' /> : <Landing />}
+          path='/'
+        />
+        <Route
+          element={appAccess ? <Navigate to='/notes' /> : <Register />}
+          path='register'
+        />
+        <Route
+          element={appAccess ? <Navigate to='/notes' /> : <Login />}
+          path='login'
+        />
+        <Route
+          element={appAccess ? <App /> : <Navigate to='/login' />}
+          path='notes'
+        >
           <Route element={<NoNoteSelected />} index />
           <Route element={<Body />} path=':noteId' />
         </Route>

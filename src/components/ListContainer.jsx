@@ -1,8 +1,22 @@
-const ListContainer = ({ children, extraStyles = '', width = 'w-full', header = '', headerColor = '', padding = 'p-0' }) => {
+const ListContainer = ({
+  children,
+  extraStyles = '',
+  width = 'w-full',
+  header = '',
+  headerColor = '',
+  padding = 'p-0',
+}) => {
   return (
-
-    <ul className={`${width} ${padding} first-of-type:mt-0 mt-3 ${extraStyles}`}>
-      {header && <span className={`${headerColor} flex items-center justify-start text-xs px-3 mb-[2px] min-h-[24px]`}>{header}</span>}
+    <ul
+      className={`${width} ${padding} mt-3 first-of-type:mt-0 ${extraStyles}`}
+    >
+      {header && (
+        <span
+          className={`${headerColor} mb-[2px] flex min-h-[24px] items-center justify-start px-3 text-xs`}
+        >
+          {header}
+        </span>
+      )}
       {children}
     </ul>
   )

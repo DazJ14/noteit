@@ -5,86 +5,112 @@ import notes from '../../services/notes'
 const initialState = {
   notes: [],
   status: 'idle',
-  error: null
+  error: null,
 }
 
-export const fetchUserNotes = createAsyncThunk('notes/fetchUserNotes', async (sessionToken) => {
-  const token = sessionToken
+export const fetchUserNotes = createAsyncThunk(
+  'notes/fetchUserNotes',
+  async (sessionToken) => {
+    const token = sessionToken
 
-  const fetchedUserNotes = await notes.getUserNotes(token)
+    const fetchedUserNotes = await notes.getUserNotes(token)
 
-  return fetchedUserNotes
-})
-
-export const createNewNote = createAsyncThunk('notes/createNewNote', async (navigate, { getState }) => {
-  const token = getState().user.token
-  const data = await notes.createNote(token)
-
-  if (navigate) {
-    navigate(`/notes/${data.id}`)
+    return fetchedUserNotes
   }
+)
 
-  return data
-})
+export const createNewNote = createAsyncThunk(
+  'notes/createNewNote',
+  async (navigate, { getState }) => {
+    const token = getState().user.token
+    const data = await notes.createNote(token)
 
-export const saveNote = createAsyncThunk('notes/saveNote', (noteEdited, { getState }) => {
-  const currentNotesState = getState().notes.notes
-  const notesStateEdited = currentNotesState.map(noteData =>
-    noteData.id === noteEdited.id
-      ? {
-        ...noteData,
-        last_edition: noteEdited.lastEdition,
-        note: {
-          header: noteEdited.header,
-          body: noteEdited.body
-        }
-      }
-      : noteData
-  )
+    if (navigate) {
+      navigate(`/notes/${data.id}`)
+    }
 
-  window.localStorage.setItem('noteitAppNotes', JSON.stringify(notesStateEdited))
-
-  return noteEdited
-})
-
-export const updateNote = createAsyncThunk('notes/updateNote', async (newNote, { getState }) => {
-  const { id, header, body } = newNote
-  console.log('en el thunk updateNote antes de la peticion: ' + JSON.stringify(newNote))
-  const token = getState().user.token
-
-  const request = await notes.updateNote(id, { header, body }, token)
-
-  console.log('despues de la peticion: ' + JSON.stringify(request))
-
-  return {
-    id: request.id,
-    note: request.note,
-    lastEdition: request.last_edition
+    return data
   }
-})
+)
 
-export const deleteNote = createAsyncThunk('notes/deleteNote', async (noteId, { getState }) => {
-  const token = getState().user.token
+export const saveNote = createAsyncThunk(
+  'notes/saveNote',
+  (noteEdited, { getState }) => {
+    const currentNotesState = getState().notes.notes
+    const notesStateEdited = currentNotesState.map((noteData) =>
+      noteData.id === noteEdited.id
+        ? {
+            ...noteData,
+            last_edition: noteEdited.lastEdition,
+            note: {
+              header: noteEdited.header,
+              body: noteEdited.body,
+            },
+          }
+        : noteData
+    )
 
-  await notes.deleteNote(noteId, token)
-  return noteId
-})
+    window.localStorage.setItem(
+      'noteitAppNotes',
+      JSON.stringify(notesStateEdited)
+    )
 
-export const makeNoteFavorite = createAsyncThunk('notes/makeNoteFavorite', (noteId, { getState }) => {
-  const currentNotesState = getState().notes.notes
-  const notesStateEdited = currentNotesState.map(noteData =>
-    noteData.id === noteId
-      ? {
-        ...noteData,
-        favorite: !noteData.favorite
-      }
-      : noteData
-  )
+    return noteEdited
+  }
+)
 
-  window.localStorage.setItem('noteitAppNotes', JSON.stringify(notesStateEdited))
+export const updateNote = createAsyncThunk(
+  'notes/updateNote',
+  async (newNote, { getState }) => {
+    const { id, header, body } = newNote
+    console.log(
+      'en el thunk updateNote antes de la peticion: ' + JSON.stringify(newNote)
+    )
+    const token = getState().user.token
 
-  return noteId
-})
+    const request = await notes.updateNote(id, { header, body }, token)
+
+    console.log('despues de la peticion: ' + JSON.stringify(request))
+
+    return {
+      id: request.id,
+      note: request.note,
+      lastEdition: request.last_edition,
+    }
+  }
+)
+
+export const deleteNote = createAsyncThunk(
+  'notes/deleteNote',
+  async (noteId, { getState }) => {
+    const token = getState().user.token
+
+    await notes.deleteNote(noteId, token)
+    return noteId
+  }
+)
+
+export const makeNoteFavorite = createAsyncThunk(
+  'notes/makeNoteFavorite',
+  (noteId, { getState }) => {
+    const currentNotesState = getState().notes.notes
+    const notesStateEdited = currentNotesState.map((noteData) =>
+      noteData.id === noteId
+        ? {
+            ...noteData,
+            favorite: !noteData.favorite,
+          }
+        : noteData
+    )
+
+    window.localStorage.setItem(
+      'noteitAppNotes',
+      JSON.stringify(notesStateEdited)
+    )
+
+    return noteId
+  }
+)
 
 export const notesSlice = createSlice({
   name: 'notes',
@@ -94,7 +120,7 @@ export const notesSlice = createSlice({
       state.notes = []
       state.status = 'idle'
       state.error = null
-    }
+    },
   },
   // eslint-disable-next-line space-before-function-paren
   extraReducers(builder) {
@@ -121,14 +147,18 @@ export const notesSlice = createSlice({
         }
       })
       .addCase(deleteNote.fulfilled, (state, action) => {
-        const notesFiltered = state.notes.filter((note) => note.id !== action.payload)
+        const notesFiltered = state.notes.filter(
+          (note) => note.id !== action.payload
+        )
         state.notes = notesFiltered
       })
       .addCase(makeNoteFavorite.fulfilled, (state, action) => {
-        const existingNote = state.notes.find((note) => note.id === action.payload)
+        const existingNote = state.notes.find(
+          (note) => note.id === action.payload
+        )
         existingNote.favorite = !existingNote.favorite
       })
-  }
+  },
 })
 
 export const { userLogOut } = notesSlice.actions
@@ -145,7 +175,7 @@ export const selectFavoriteUserNotes = createSelector(
 
 export const selectFavoriteNotes = (state) => {
   const notesCopy = [...state.notes.notes]
-  return notesCopy.filter(note => note.favorite)
+  return notesCopy.filter((note) => note.favorite)
 }
 
 export default notesSlice.reducer

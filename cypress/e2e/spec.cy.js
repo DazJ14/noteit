@@ -9,7 +9,7 @@ describe('My First Test', () => {
     const user = {
       name: 'Diego',
       username: 'DazJ_test',
-      password: 'testingpassword'
+      password: 'testingpassword',
     }
 
     cy.request('POST', 'http://localhost:3000/api/users', user)

@@ -1,6 +1,6 @@
 const UserIcon = ({ username }) => {
   return (
-    <span className='w-7 h-7 grid place-items-center uppercase bg-lime-500 rounded font-medium shrink-0 text-white'>
+    <span className='grid h-7 w-7 shrink-0 place-items-center rounded bg-lime-500 font-medium uppercase text-white'>
       {username[0]}
     </span>
   )

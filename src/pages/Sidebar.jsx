@@ -10,19 +10,24 @@ export default function Sidebar({ children }) {
 
   return (
     <aside className='h-screen'>
-      <nav className='h-full flex flex-col bg-white border-r shadow-sm'>
-        <div className='p-4 pb-2 flex justify-between items-center'>
+      <nav className='flex h-full flex-col border-r bg-white shadow-sm'>
+        <div className='flex items-center justify-between p-4 pb-2'>
           <img
             src='https://img.logoipsum.com/243.svg'
-            className={`overflow-hidden transition-all ${expanded ? 'w-32' : 'w-0'
-              }`}
+            className={`overflow-hidden transition-all ${
+              expanded ? 'w-32' : 'w-0'
+            }`}
             alt=''
           />
           <button
             onClick={() => setExpanded((curr) => !curr)}
-            className='p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100'
+            className='rounded-lg bg-gray-50 p-1.5 hover:bg-gray-100'
           >
-            {expanded ? <FontAwesomeIcon icon={faAnglesLeft} /> : <FontAwesomeIcon icon={faAnglesRight} />}
+            {expanded ? (
+              <FontAwesomeIcon icon={faAnglesLeft} />
+            ) : (
+              <FontAwesomeIcon icon={faAnglesRight} />
+            )}
           </button>
         </div>
 
@@ -59,38 +64,31 @@ export function SidebarItem({ icon, text, active, alert }) {
 
   return (
     <li
-      className={`
-        relative flex items-center py-2 px-3 my-1
-        font-medium rounded-md cursor-pointer
-        transition-colors group
-        ${active
+      className={`group relative my-1 flex cursor-pointer items-center rounded-md px-3 py-2 font-medium transition-colors ${
+        active
           ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800'
-          : 'hover:bg-indigo-50 text-gray-600'
-        }
-    `}
+          : 'text-gray-600 hover:bg-indigo-50'
+      } `}
     >
       {icon}
       <span
-        className={`overflow-hidden transition-all ${expanded ? 'w-52 ml-3' : 'w-0'
-          }`}
+        className={`overflow-hidden transition-all ${
+          expanded ? 'ml-3 w-52' : 'w-0'
+        }`}
       >
         {text}
       </span>
       {alert && (
         <div
-          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? '' : 'top-2'
-            }`}
+          className={`absolute right-2 h-2 w-2 rounded bg-indigo-400 ${
+            expanded ? '' : 'top-2'
+          }`}
         />
       )}
 
       {!expanded && (
         <div
-          className={`
-          absolute left-full rounded-md px-2 py-1 ml-6
-          bg-indigo-100 text-indigo-800 text-sm
-          invisible opacity-20 -translate-x-3 transition-all
-          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-      `}
+          className={`invisible absolute left-full ml-6 -translate-x-3 rounded-md bg-indigo-100 px-2 py-1 text-sm text-indigo-800 opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100`}
         >
           {text}
         </div>

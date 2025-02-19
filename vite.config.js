@@ -7,7 +7,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    css: true
+    css: true,
   },
-  assetsInclude: ['**/*.PNG']
+  assetsInclude: ['**/*.PNG'],
 })
