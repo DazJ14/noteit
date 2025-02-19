@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import appDesktopPicture from '../assets/appPicture.PNG'
+import appDesktopPicture from '../assets/landingpage-image.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
