@@ -10,7 +10,7 @@ export default function Sidebar({ children }) {
 
   return (
     <aside className='h-screen'>
-      <nav className='flex h-full flex-col border-r bg-white shadow-sm'>
+      <nav className='flex h-full flex-col border-r bg-white shadow-xs'>
         <div className='flex items-center justify-between p-4 pb-2'>
           <img
             src='https://img.logoipsum.com/243.svg'
@@ -66,7 +66,7 @@ export function SidebarItem({ icon, text, active, alert }) {
     <li
       className={`group relative my-1 flex cursor-pointer items-center rounded-md px-3 py-2 font-medium transition-colors ${
         active
-          ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800'
+          ? 'bg-linear-to-tr from-indigo-200 to-indigo-100 text-indigo-800'
           : 'text-gray-600 hover:bg-indigo-50'
       } `}
     >

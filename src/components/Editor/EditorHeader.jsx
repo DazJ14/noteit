@@ -43,7 +43,7 @@ const EditorHeader = ({ isEditable, currentNote, titleEdited }) => {
   const headerEditorInstance = useEditor({
     editorProps: {
       attributes: {
-        class: 'focus:outline-none',
+        class: 'focus:outline-hidden',
       },
     },
     // Header extension

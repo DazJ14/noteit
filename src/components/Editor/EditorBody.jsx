@@ -55,7 +55,7 @@ const EditorBody = ({ isEditable, currentNote, bodyEdited }) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
-        class: 'focus:outline-none',
+        class: 'focus:outline-hidden',
       },
     },
     extensions: [
